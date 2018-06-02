@@ -1,0 +1,18 @@
+version: '2.1'
+services:
+  mssqldata:
+    image: microsoft/mssql-server-linux:2017-latest
+    entrypoint: /bin/bash
+
+  mssql:
+    image: microsoft/mssql-server-linux:latest
+    ports:
+      - 1433:1433
+    volumes:
+      - /var/opt/mssql
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: 0@8zmZIh
+    # don't use this if you don't want to persit data between docker up and down
+    volumes_from:
+      - mssqldata
