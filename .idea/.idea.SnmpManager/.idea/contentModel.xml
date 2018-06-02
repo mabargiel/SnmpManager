@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.1/resharper-host/local/Transient/ReSharperHost/v12/SolutionCaches/_SnmpManager.1102559496.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="SnmpManager.API" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="ActiveDevicesController.cs" t="Include" />
+          <e p="AgentsHub.cs" t="Include" />
+          <e p="WatcherConnections.cs" t="Include" />
+          <e p="WatchersController.cs" t="Include" />
+          <e p="WatchersHub.cs" t="Include" />
+        </e>
+        <e p="Data" t="Include">
+          <e p="AgentDeviceInfo.cs" t="Include" />
+          <e p="CreateWatcherDto.cs" t="Include" />
+          <e p="Migrations" t="Include">
+            <e p="20180602115850_InitialMigration.cs" t="Include" />
+            <e p="20180602115850_InitialMigration.Designer.cs" t="Include" />
+            <e p="20180602121743_CreateTableAgents.cs" t="Include" />
+            <e p="20180602121743_CreateTableAgents.Designer.cs" t="Include" />
+            <e p="20180602130247_RemoveUpdatesEveryColumn.cs" t="Include" />
+            <e p="20180602130247_RemoveUpdatesEveryColumn.Designer.cs" t="Include" />
+            <e p="SnmpManagerContextModelSnapshot.cs" t="Include" />
+          </e>
+          <e p="Repositories" t="Include">
+            <e p="ActiveAgentsCache.cs" t="Include" />
+            <e p="DbWatchersRepository.cs" t="Include" />
+            <e p="IWatchersRepository.cs" t="Include" />
+          </e>
+          <e p="SnmpManagerContext.cs" t="Include" />
+          <e p="SnmpMethod.cs" t="Include" />
+          <e p="WatcherData.cs" t="Include" />
+          <e p="WatcherSnmpData.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="SnmpManager.API.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="AgentsDiscoveryService.cs" t="Include" />
+          <e p="ISnmpService.cs" t="Include" />
+          <e p="IWatcherService.cs" t="Include" />
+          <e p="SnmpService.cs" t="Include" />
+          <e p="WatcherService.cs" t="Include" />
+        </e>
+        <e p="SnmpManager.API.csproj" t="IncludeRecursive" />
+        <e p="Startup.cs" t="Include" />
+        <e p="wwwroot" t="Include">
+          <e p="Files" t="Include" />
+        </e>
+      </e>
+      <e p="SnmpManager.sln" t="IncludeFlat" />
+      <e p="Tests" t="Include" />
+    </e>
+  </component>
+</project>
