@@ -48,7 +48,8 @@ namespace SnmpManager.API.Controllers
             {
                 IpAddress = watcherData.IpAddress,
                 Mib = watcherData.Mib,
-                Method = watcherData.Method
+                Method = watcherData.Method,
+                UpdatesEvery = watcherData.UpdatesEvery
             };
             
             _watchersRepository.Create(data);

@@ -35,6 +35,7 @@ namespace SnmpManager.API
             
             services.AddSingleton<IHostedService, AgentsDiscoveryService>();
             services.AddSingleton<ActiveAgentsCache>();
+            services.AddSingleton<AgentsHub>();
             services.AddSingleton<IWatcherService, WatcherService>(); //TODO to be refactored. Should not be a singleton
                 
             services.AddTransient<IWatchersRepository, DbWatchersRepository>();
@@ -65,6 +66,7 @@ namespace SnmpManager.API
                 app.UseHsts();
             }
 
+            app.UseCors("AllowCors");
             app.UseSignalR(route =>
             {
                 route.MapHub<AgentsHub>("/agents");

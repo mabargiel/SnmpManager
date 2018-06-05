@@ -12,6 +12,7 @@ namespace SnmpManager.API.Models
         public string IpAddress { get; set; }
         public string Mib { get; set; }
         public Method Method { get; set; }
+        public int UpdatesEvery { get; set; }
     }
 
     public enum Method

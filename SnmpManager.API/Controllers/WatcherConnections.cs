@@ -27,10 +27,10 @@ namespace SnmpManager.API.Controllers
         }
         
         [HttpPost("{id}")]
-        public IActionResult Connect(Guid id, [FromBody] int updatesEvery)
+        public IActionResult Connect(Guid id)
         {
             var watcher = _watchersRepository.GetSingle(id);
-            _watcherService.StartNewWatcher(watcher, updatesEvery);
+            _watcherService.StartNewWatcher(watcher);
             
             return Accepted();
         }

@@ -20,9 +20,9 @@ namespace SnmpManager.API.Services
     public class AgentsDiscoveryService : IHostedService
     {
         private readonly ActiveAgentsCache _activeAgentsCache;
-        private readonly AgentsHub _agentsHubContext;
+        private readonly IHubContext<AgentsHub> _agentsHubContext;
 
-        public AgentsDiscoveryService(ActiveAgentsCache activeAgentsCache, AgentsHub agentsHubContext)
+        public AgentsDiscoveryService(ActiveAgentsCache activeAgentsCache, IHubContext<AgentsHub> agentsHubContext)
         {
             _activeAgentsCache = activeAgentsCache;
             _agentsHubContext = agentsHubContext;
@@ -59,14 +59,14 @@ namespace SnmpManager.API.Services
 
                     foreach (var newAgent in newAgents)
                     {
-                        await _agentsHubContext.NewAgentFound(newAgent, cancellationToken);
+                        await _agentsHubContext.Clients.All.SendAsync("NEW-AGENT-DISCOVERED", newAgent, cancellationToken);
                         _activeAgentsCache.AddOrUpdateDevice(newAgent);
                         Console.WriteLine($"New agent discovered: {newAgent}");
                     }
 
                     foreach (var inactiveAgent in inactiveAgents)
                     {
-                        await _agentsHubContext.Clients.All.SendAsync("AGENT_DISCONNECTED", inactiveAgent, cancellationToken);
+                        await _agentsHubContext.Clients.All.SendAsync("AGENT-DISCONNECTED", inactiveAgent, cancellationToken);
                         _activeAgentsCache.DeleteDevice(inactiveAgent);
                         Console.WriteLine($"Agent ({inactiveAgent}) became inactive");
                     }

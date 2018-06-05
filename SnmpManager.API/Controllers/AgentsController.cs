@@ -5,12 +5,12 @@ using SnmpManager.API.Models.Repositories;
 namespace SnmpManager.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/activeDevices")]
-    public class ActiveDevicesController : Controller
+    [Route("api/agents")]
+    public class AgentsController : Controller
     {
         private readonly ActiveAgentsCache _activeAgentsCache;
 
-        public ActiveDevicesController(ActiveAgentsCache activeAgentsCache)
+        public AgentsController(ActiveAgentsCache activeAgentsCache)
         {
             _activeAgentsCache = activeAgentsCache;
         }

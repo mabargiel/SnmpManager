@@ -23,7 +23,7 @@ namespace SnmpManager.API.Services
             _snmpService = snmpService;
         }
         
-        public void StartNewWatcher(WatcherData watcherData, int updatesEvery)
+        public void StartNewWatcher(WatcherData watcherData)
         {
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
@@ -42,14 +42,14 @@ namespace SnmpManager.API.Services
                             cancellationToken);
                     }
 
-                    await Task.Delay(updatesEvery, cancellationToken);
+                    await Task.Delay(watcherData.UpdatesEvery, cancellationToken);
                 }
 
                 return Task.CompletedTask;
 
             }, cancellationToken);
 
-            _activeWatchers[watcherData.Id] = (cts, updatesEvery);
+            _activeWatchers[watcherData.Id] = (cts, watcherData.UpdatesEvery);
         }
 
         public void StopWatcher(Guid id)
