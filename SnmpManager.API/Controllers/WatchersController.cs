@@ -53,6 +53,7 @@ namespace SnmpManager.API.Controllers
             };
             
             _watchersRepository.Create(data);
+            _watcherService.StartNewWatcher(data);
             await _watchersRepository.SaveChangesAsync();
 
             return CreatedAtRoute("GetSingleWatcher", new {Controller = "Watchers", id = data.Id.ToString()}, data);

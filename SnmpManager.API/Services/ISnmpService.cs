@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using SnmpManager.API.Controllers;
+﻿using System;
+using System.Threading.Tasks;
 using SnmpManager.API.Models;
 
 namespace SnmpManager.API.Services

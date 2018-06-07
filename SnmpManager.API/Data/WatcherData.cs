@@ -6,6 +6,11 @@ namespace SnmpManager.API.Models
 {
     public class WatcherData
     {
+        public WatcherData()
+        {
+            UpdatesEvery = 1000;
+        }
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

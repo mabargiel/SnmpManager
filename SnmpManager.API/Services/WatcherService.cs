@@ -27,6 +27,9 @@ namespace SnmpManager.API.Services
         {
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
+            
+            if(WatcherConnectionsHandler.ConnectedIds.Any(id => id == watcherData.Id.ToString()))
+                return;
 
             Task.Run(async () =>
             {
@@ -35,11 +38,13 @@ namespace SnmpManager.API.Services
                 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    if(!WatcherConnectionsHandler.ConnectedIds.Any())
+                    if(WatcherConnectionsHandler.ConnectedIds.Any())
                     {
-                        var watcherPingData = _snmpService.Request(watcherData.IpAddress, watcherData.Mib, watcherData.Method);
-                        await _watcherHubContext.Clients.All.SendAsync("WATCHER-DATA", watcherPingData,
+                        var watcherPingData = await _snmpService.Request(watcherData.IpAddress, watcherData.Mib, watcherData.Method);
+
+                        await _watcherHubContext.Clients.All.SendAsync("WATCHER-DATA-RECEIVED", new { Id=watcherData.Id.ToString(), Data=watcherPingData},
                             cancellationToken);
+                        Console.WriteLine("DATA_SENT");
                     }
 
                     await Task.Delay(watcherData.UpdatesEvery, cancellationToken);
