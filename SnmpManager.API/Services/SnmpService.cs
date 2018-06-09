@@ -34,7 +34,7 @@ namespace SnmpManager.API.Services
 
 
                 var objectIdentifier = new ObjectIdentifier(mib);
-                Messenger.Walk(VersionCode.V1, receiver, new OctetString("public"), objectIdentifier, result, 1000,
+                Messenger.Walk(VersionCode.V1, receiver, new OctetString("public"), objectIdentifier, result, 5000,
                     WalkMode.WithinSubtree);
             }
             catch (Exception e)
