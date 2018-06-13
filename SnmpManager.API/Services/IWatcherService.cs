@@ -1,5 +1,5 @@
 ﻿using System;
-using SnmpManager.API.Models;
+using SnmpManager.API.Data;
 
 namespace SnmpManager.API.Services
 {

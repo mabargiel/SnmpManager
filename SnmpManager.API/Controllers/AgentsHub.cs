@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using SnmpManager.API.Models;
+using SnmpManager.API.Data;
 
 namespace SnmpManager.API.Controllers
 {

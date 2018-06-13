@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SnmpManager.API.Models;
-using SnmpManager.API.Models.Repositories;
+using SnmpManager.API.Data;
+using SnmpManager.API.Data.Repositories;
 using SnmpManager.API.Services;
 
 namespace SnmpManager.API.Controllers

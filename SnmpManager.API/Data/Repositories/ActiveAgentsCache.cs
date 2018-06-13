@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SnmpManager.API.Models.Repositories
+namespace SnmpManager.API.Data.Repositories
 {
     public class ActiveAgentsCache
     {

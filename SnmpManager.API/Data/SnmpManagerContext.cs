@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace SnmpManager.API.Models
+namespace SnmpManager.API.Data
 {
     public class SnmpManagerContext : DbContext
     {

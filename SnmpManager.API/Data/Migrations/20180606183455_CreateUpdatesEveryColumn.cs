@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SnmpManager.API.Migrations
+namespace SnmpManager.API.Data.Migrations
 {
     public partial class CreateUpdatesEveryColumn : Migration
     {

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace SnmpManager.API.Models
+namespace SnmpManager.API.Data
 {
     public class WatcherData
     {
@@ -16,12 +18,14 @@ namespace SnmpManager.API.Models
         public Guid Id { get; set; }
         public string IpAddress { get; set; }
         public string Mib { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public Method Method { get; set; }
         public int UpdatesEvery { get; set; }
     }
 
     public enum Method
     {
-        Walk
+        Walk,
+        Get
     }
 }

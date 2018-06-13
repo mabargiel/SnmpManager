@@ -1,4 +1,4 @@
-﻿namespace SnmpManager.API.Models
+﻿namespace SnmpManager.API.Data
 {
     public class CreateWatcherDto
     {

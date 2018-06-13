@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using SnmpManager.API.Controllers;
-using SnmpManager.API.Models;
+using SnmpManager.API.Data;
 
 namespace SnmpManager.API.Services
 {
@@ -28,7 +28,7 @@ namespace SnmpManager.API.Services
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
             
-            if(WatcherConnectionsHandler.ConnectedIds.Any(id => id == watcherData.Id.ToString()))
+            if(WatcherConnectionsHandler.ConnectedIds != null && WatcherConnectionsHandler.ConnectedIds.Any(id => id == watcherData.Id.ToString()))
                 return;
 
             Task.Run(async () =>
@@ -40,11 +40,11 @@ namespace SnmpManager.API.Services
                 {
                     if(WatcherConnectionsHandler.ConnectedIds.Any())
                     {
-                        var watcherPingData = await _snmpService.Request(watcherData.IpAddress, watcherData.Mib, watcherData.Method);
+                        var watcherPingData = _snmpService.Request(watcherData.IpAddress, watcherData.Mib, watcherData.Method);
 
                         await _watcherHubContext.Clients.All.SendAsync("WATCHER-DATA-RECEIVED", new { Id=watcherData.Id.ToString(), Data=watcherPingData},
                             cancellationToken);
-                        Console.WriteLine("DATA_SENT");
+                        Console.WriteLine("DATA_SENT {0}", watcherPingData.Variables.Count);
                     }
 
                     await Task.Delay(watcherData.UpdatesEvery, cancellationToken);

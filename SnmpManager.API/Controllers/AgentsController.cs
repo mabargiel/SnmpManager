@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SnmpManager.API.Models;
-using SnmpManager.API.Models.Repositories;
+using SnmpManager.API.Data.Repositories;
 
 namespace SnmpManager.API.Controllers
 {

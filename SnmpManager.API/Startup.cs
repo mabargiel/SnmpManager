@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using SnmpManager.API.Controllers;
-using SnmpManager.API.Models;
-using SnmpManager.API.Models.Repositories;
+using SnmpManager.API.Data;
+using SnmpManager.API.Data.Repositories;
 using SnmpManager.API.Services;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
@@ -31,7 +31,7 @@ namespace SnmpManager.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR();
             
-            const string connection = @"Server=localhost;Database=SnmpManager;ConnectRetryCount=0;User Id=sa;password=0@8zmZIh"; 
+            const string connection = @"Server=mssql;Database=SnmpManager;ConnectRetryCount=0;User Id=sa;password=0@8zmZIh"; 
             services.AddDbContext<SnmpManagerContext>(options => options.UseSqlServer(connection)); 
             
             services.AddSingleton<IHostedService, AgentsDiscoveryService>();

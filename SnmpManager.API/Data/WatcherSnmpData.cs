@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using SnmpManager.API.Services;
 
-namespace SnmpManager.API.Models
+namespace SnmpManager.API.Data
 {
     public struct WatcherSnmpData
     {
-        public Dictionary<string, string> Variables { get; }
+        public Dictionary<string, TypedSnmpValue> Variables { get; }
 
-        public WatcherSnmpData(Dictionary<string, string> variables)
+        public WatcherSnmpData(Dictionary<string, TypedSnmpValue> variables)
         {
             Variables = variables;
         }

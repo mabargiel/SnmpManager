@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SnmpManager.API.Models.Repositories
+namespace SnmpManager.API.Data.Repositories
 {
     public class DbWatchersRepository : IWatchersRepository
     {

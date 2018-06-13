@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using SnmpManager.API.Models.Repositories;
+using SnmpManager.API.Data.Repositories;
 using SnmpManager.API.Services;
 
 namespace SnmpManager.API.Controllers

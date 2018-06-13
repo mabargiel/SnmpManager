@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Lextm.SharpSnmpLib;
@@ -12,8 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SnmpManager.API.Controllers;
-using SnmpManager.API.Models;
-using SnmpManager.API.Models.Repositories;
+using SnmpManager.API.Data;
+using SnmpManager.API.Data.Repositories;
 
 namespace SnmpManager.API.Services
 {
@@ -48,7 +49,15 @@ namespace SnmpManager.API.Services
             
                     discoverer.AgentFound += OnAgentFound;
                     discoverer.AgentFound += OnAgentFound;
-                    await discoverer.DiscoverAsync(VersionCode.V3, new IPEndPoint(IPAddress.Broadcast, 161), new OctetString("public"), 5000);
+
+                    try
+                    {
+                        await discoverer.DiscoverAsync(VersionCode.V3, new IPEndPoint(IPAddress.Broadcast, 161), new OctetString("public"), 5000);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
 
                     var discoveredAgents = agents.Select(x =>
                         new AgentDeviceInfo(x, VersionCode.V3.ToString())).ToArray();

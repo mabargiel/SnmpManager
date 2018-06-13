@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SnmpManager.API.Models
+namespace SnmpManager.API.Data
 {
     public class AgentDeviceInfo : IEquatable<AgentDeviceInfo>
     {

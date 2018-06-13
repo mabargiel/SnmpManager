@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SnmpManager.API.Models;
+using SnmpManager.API.Data;
 
 namespace SnmpManager.API.Services
 {
     public interface ISnmpService
     {
-        Task<WatcherSnmpData> Request(string ip, string mib, Method method);
+        WatcherSnmpData Request(string ip, string mib, Method method);
     }
 }
