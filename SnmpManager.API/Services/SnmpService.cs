@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Lextm.SharpSnmpLib;
 using Lextm.SharpSnmpLib.Messaging;
 using Lextm.SharpSnmpLib.Security;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using SnmpManager.API.Controllers;
 using SnmpManager.API.Data;
 
@@ -37,18 +35,17 @@ namespace SnmpManager.API.Services
                 var receiver = new IPEndPoint(IPAddress.Parse(ip), 161);
                 var objectIdentifier = new ObjectIdentifier(mib);
                 
-                Messenger.Walk(VersionCode.V1, receiver, new OctetString("public"), objectIdentifier, result, 2000,
+                Messenger.Walk(VersionCode.V2, receiver, new OctetString("public"), objectIdentifier, result, 60000,
                     WalkMode.WithinSubtree);
+
+                return new WatcherSnmpData(result.ToDictionary(variable => variable.Id.ToString(),
+                    variable => new TypedSnmpValue(variable.Data.TypeCode, variable.Data.ToString())));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
-
-            return new WatcherSnmpData(result.ToDictionary(variable => variable.Id.ToString(),
-                variable => new TypedSnmpValue(variable.Data.TypeCode, variable.Data.ToString())));
         }
 
         private WatcherSnmpData Get(string ip, string mib)
@@ -58,7 +55,7 @@ namespace SnmpManager.API.Services
                 var receiver = new IPEndPoint(IPAddress.Parse(ip), 161);
                 var objectIdentifier = new ObjectIdentifier(mib);
 
-                var variables = Messenger.Get(VersionCode.V3, receiver, new OctetString("public"),
+                var variables = Messenger.Get(VersionCode.V2, receiver, new OctetString("public"),
                     new List<Variable> {new Variable(objectIdentifier)}, 2000);
 
                 return new WatcherSnmpData(variables.ToDictionary(variable => variable.Id.ToString(),
@@ -69,19 +66,6 @@ namespace SnmpManager.API.Services
                 Console.WriteLine(e);
                 throw;
             }
-        }
-    }
-
-    public class TypedSnmpValue
-    {
-        [JsonConverter(typeof(StringEnumConverter))]
-        public SnmpType Type { get; }
-        public string Data { get; }
-
-        public TypedSnmpValue(SnmpType type, string data)
-        {
-            Type = type;
-            Data = data;
         }
     }
 }

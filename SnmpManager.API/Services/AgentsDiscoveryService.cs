@@ -40,6 +40,7 @@ namespace SnmpManager.API.Services
             {
                 while (!cancellationToken.IsCancellationRequested)
                 {
+                    Console.WriteLine("SCANNING...");
                     var agents = new List<string>();
             
                     void OnAgentFound(object sender, AgentFoundEventArgs args)
@@ -53,31 +54,32 @@ namespace SnmpManager.API.Services
                     try
                     {
                         await discoverer.DiscoverAsync(VersionCode.V3, new IPEndPoint(IPAddress.Broadcast, 161), new OctetString("public"), 5000);
+
+                        var discoveredAgents = agents.Select(x =>
+                            new AgentDeviceInfo(x, VersionCode.V3.ToString())).ToArray();
+                
+                        var currentAgents = _activeAgentsCache.GetActiveDevices();
+                        var newAgents = discoveredAgents.Except(currentAgents);
+                        var inactiveAgents = currentAgents.Except(discoveredAgents);
+
+                        foreach (var newAgent in newAgents)
+                        {
+                            await _agentsHubContext.Clients.All.SendAsync("NEW-AGENT-DISCOVERED", newAgent, cancellationToken);
+                            _activeAgentsCache.AddOrUpdateDevice(newAgent);
+                            Console.WriteLine($"New agent discovered: {newAgent}");
+                        }
+
+                        foreach (var inactiveAgent in inactiveAgents)
+                        {
+                            await _agentsHubContext.Clients.All.SendAsync("AGENT-DISCONNECTED", inactiveAgent, cancellationToken);
+                            _activeAgentsCache.DeleteDevice(inactiveAgent);
+                            Console.WriteLine($"Agent ({inactiveAgent}) became inactive");
+                        }
                     }
                     catch (Exception e)
                     {
+                        //supress errors since we don't want to break the loop
                         Console.WriteLine(e);
-                    }
-
-                    var discoveredAgents = agents.Select(x =>
-                        new AgentDeviceInfo(x, VersionCode.V3.ToString())).ToArray();
-                
-                    var currentAgents = _activeAgentsCache.GetActiveDevices();
-                    var newAgents = discoveredAgents.Except(currentAgents);
-                    var inactiveAgents = currentAgents.Except(discoveredAgents);
-
-                    foreach (var newAgent in newAgents)
-                    {
-                        await _agentsHubContext.Clients.All.SendAsync("NEW-AGENT-DISCOVERED", newAgent, cancellationToken);
-                        _activeAgentsCache.AddOrUpdateDevice(newAgent);
-                        Console.WriteLine($"New agent discovered: {newAgent}");
-                    }
-
-                    foreach (var inactiveAgent in inactiveAgents)
-                    {
-                        await _agentsHubContext.Clients.All.SendAsync("AGENT-DISCONNECTED", inactiveAgent, cancellationToken);
-                        _activeAgentsCache.DeleteDevice(inactiveAgent);
-                        Console.WriteLine($"Agent ({inactiveAgent}) became inactive");
                     }
                 
                     await Task.Delay(5000, cancellationToken);
