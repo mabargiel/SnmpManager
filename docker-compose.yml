@@ -12,7 +12,7 @@ services:
       - /var/opt/mssql
     environment:
       ACCEPT_EULA: Y
-      SA_PASSWORD: 0@8zmZIh
+      SA_PASSWORD: admin123!
     # don't use this if you don't want to persit data between docker up and down
     volumes_from:
       - mssqldata
